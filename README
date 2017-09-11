@@ -1,0 +1,9 @@
+=== checkout dotfiles repo ===
+git clone -q git://github.com/kylesloan/dotfiles.git ${HOME}/.dotfiles
+
+=== set symlinks to needed files===
+ln -s ${HOME}/.dotfiles/vim/vimrc ${HOME}/.vimrc
+ln -s ${HOME}/.dotfiles/tmux/tmux.conf ${HOME}/.tmux.conf
+
+=== Cheat sheets ===
+CLI history -- http://www.catonmat.net/download/bash-history-cheat-sheet.txt

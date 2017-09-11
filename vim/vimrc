@@ -1,0 +1,110 @@
+" :CtrlPClearCache  to clear control P cache
+
+:set relativenumber
+:set number
+:set et
+:set sw=2
+:set tags=/usr/local/webapps/kyle/tags.ctags
+:set nocompatible
+:set hls
+:set paste
+:synta on
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" http://items.sjbach.com/319/configuring-vim-right
+set history=1000
+set wildmenu
+let mapleader = "\\"
+set ignorecase
+set smartcase
+
+" paste last copied item (not deleted)
+:nmap <Leader>v "0p
+
+" split window horizontal/vertical
+:nmap <Leader>w <c-w>s
+:nmap <Leader>e <c-w>v
+
+" add highlighting to mystery files
+:nmap <Leader>h :runtime! syntax/apache.vim<enter>
+
+
+" http://vim.wikia.com/wiki/Pretty-formatting_XML
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+
+function InlineCommand()
+    let l:cmd = input('Command: ')
+    let l:output = system(l:cmd)
+    let l:output = substitute(l:output, '[\r\n]*$', '', '')
+    execute 'normal i' . l:output
+endfunction
+
+nmap <silent> <Leader>n :call InlineCommand()<CR>
+
+" insert no line break drupal salt
+function DrupalSalt()
+    let l:output = system( "openssl rand -base64 16 | sha256sum | awk '{ print $1 }'" )
+    let l:output = substitute(l:output, '[\r\n]*$', '', '')
+    execute 'normal i' . l:output
+endfunction
+
+nmap <silent> <Leader>d :call DrupalSalt()<CR>
+
+
+" insert no line break random passes
+function RandomPass()
+    let l:output = system( "< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;" )
+    let l:output = substitute(l:output, '[\r\n]*$', '', '')
+    execute 'normal i' . l:output
+endfunction
+
+nmap <silent> <Leader>p :call RandomPass()<CR>
+
+
+" https://github.com/junegunn/vim-plug
+" BEGIN PLUGINS
+call plug#begin('~/.vim/plugged')
+
+Plug 'https://github.com/kien/ctrlp.vim.git'
+Plug 'https://github.com/scrooloose/nerdtree.git'
+Plug 'https://github.com/joonty/vdebug.git'
+
+call plug#end()
+" END PLUGINS
+" run :PlugInstall
