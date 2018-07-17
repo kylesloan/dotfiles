@@ -1,3 +1,8 @@
+Install the brew stuff first from my other repo
+
+=== install oh my zsh ===
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 === checkout dotfiles repo ===
 git clone -q git://github.com/kylesloan/dotfiles.git ${HOME}/.dotfiles
 
