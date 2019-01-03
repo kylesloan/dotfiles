@@ -19,3 +19,7 @@ Launch vim and run type `:PlugInstall` to install new plugins from .vimrc file
 
 === Cheat sheets ===
 CLI history -- http://www.catonmat.net/download/bash-history-cheat-sheet.txt
+
+=== Make ZSH default on odd systems ===
+cat ~/.bash_profile                                                                                                                                               130 ↵
+which zsh 2>/dev/null &>1 && exec zsh
