@@ -29,3 +29,8 @@ which zsh 2>/dev/null &>1 && exec zsh
 shortcat
 muzzle
 itsycal
+skitch
+quicksilver
+karabiner-elements
+muzzle
+lastpass
