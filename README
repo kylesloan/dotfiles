@@ -28,3 +28,4 @@ which zsh 2>/dev/null &>1 && exec zsh
 === Other installs ===
 shortcat
 muzzle
+itsycal
