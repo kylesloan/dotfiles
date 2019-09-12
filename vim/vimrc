@@ -122,6 +122,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/kien/ctrlp.vim.git'
 Plug 'https://github.com/scrooloose/nerdtree.git'
 Plug 'https://github.com/joonty/vdebug.git'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 " END PLUGINS
