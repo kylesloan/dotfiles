@@ -42,6 +42,10 @@ ZSH_THEME="gnzh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git vi-mode z)
 
+# get ssh-agent working with zsh and docker, must appear before source $ZSH/oh-my-zsh.sh
+# https://github.com/docker/for-mac/issues/4842
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...

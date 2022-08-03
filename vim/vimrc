@@ -18,15 +18,31 @@
 " :VdebugEval <code>: evaluate some code and display the result
 " <Leader>e: evaluate the expression under visual highlight and display the result
 
+
+"au BufNewFile,BufRead *.py
+"    \ set tabstop=4
+"    \ set softtabstop=4
+"    \ set shiftwidth=4
+"    \ set textwidth=79
+"    \ set expandtab
+"    \ set autoindent
+"    \ set fileformat=unix
+
 :set relativenumber
 :set number
 :set et
 :set sw=2
-:set tags=/usr/local/webapps/kyle/tags.ctags
 :set nocompatible
 :set hls
 :set paste
 :synta on
+:set list
+:set listchars=tab:>-
+
+" gqq to word wrap the long line
+" https://chris.beams.io/posts/git-commit/
+set textwidth=72
+set colorcolumn=+1
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
